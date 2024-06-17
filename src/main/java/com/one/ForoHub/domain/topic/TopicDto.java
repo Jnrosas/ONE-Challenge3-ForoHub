@@ -4,7 +4,6 @@ import com.one.ForoHub.domain.author.AuthorDto;
 import com.one.ForoHub.domain.answer.AnswerDto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public record TopicDto(
       String title,
@@ -13,6 +12,6 @@ public record TopicDto(
       Course course,
       Boolean status,
       AuthorDto author,
-      List<AnswerDto> answer
+      AnswerDto answer
 ) {
 }

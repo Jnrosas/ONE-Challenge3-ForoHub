@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "topics")
@@ -22,6 +21,7 @@ public class TopicEnt {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
    private String title;
+   @Column(insertable=false, updatable=false)
    private String message;
    private LocalDateTime topicDate;
    @Enumerated(EnumType.STRING)
@@ -30,5 +30,15 @@ public class TopicEnt {
    @Embedded
    private AuthorEnt author;
    @Embedded
-   private List<AnswerEnt> answer;
+   private AnswerEnt answer;
+
+   public TopicEnt(TopicDto data) {
+      this.title = data.title();
+      this.message = data.message();
+      this.topicDate = data.topicDate();
+      this.course = data.course();
+      this.status = data.status();
+      this.author = new AuthorEnt(data.author());
+      this.answer = new AnswerEnt(data.answer());
+   }
 }
