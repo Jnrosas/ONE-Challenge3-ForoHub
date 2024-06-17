@@ -1,14 +1,14 @@
 package com.one.ForoHub.domain.answer;
 
-import com.one.ForoHub.domain.Author;
+import com.one.ForoHub.domain.author.AuthorDto;
 
 import java.time.LocalDateTime;
 
-public record Answer(
+public record AnswerDto(
       String topic,
       String message,
       LocalDateTime answerDate,
-      Author author,
+      AuthorDto author,
       Boolean solution
 ) {
 }

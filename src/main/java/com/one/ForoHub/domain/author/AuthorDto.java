@@ -1,6 +1,6 @@
-package com.one.ForoHub.domain;
+package com.one.ForoHub.domain.author;
 
-public record Author(
+public record AuthorDto(
       String name,
       String email,
       String password

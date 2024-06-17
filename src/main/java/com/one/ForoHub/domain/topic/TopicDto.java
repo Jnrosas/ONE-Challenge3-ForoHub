@@ -1,7 +1,7 @@
 package com.one.ForoHub.domain.topic;
 
-import com.one.ForoHub.domain.Author;
-import com.one.ForoHub.domain.answer.Answer;
+import com.one.ForoHub.domain.author.AuthorDto;
+import com.one.ForoHub.domain.answer.AnswerDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,7 +12,7 @@ public record TopicDto(
       LocalDateTime topicDate,
       Course course,
       Boolean status,
-      Author author,
-      List<Answer> answer
+      AuthorDto author,
+      List<AnswerDto> answer
 ) {
 }
