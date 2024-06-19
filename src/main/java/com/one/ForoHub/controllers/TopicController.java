@@ -3,6 +3,7 @@ package com.one.ForoHub.controllers;
 import com.one.ForoHub.domain.topic.Topic;
 import com.one.ForoHub.domain.topic.TopicDto;
 import com.one.ForoHub.domain.topic.TopicRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ public class TopicController {
    private TopicRepository topicRepository;
 
    @PostMapping
+   @Transactional
    public void postTopic(@RequestBody TopicDto data) {
       topicRepository.save(new Topic(data));
    }
