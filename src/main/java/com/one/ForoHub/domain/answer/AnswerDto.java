@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 public record AnswerDto(
       @NotBlank String topic,
       @NotBlank String message,
-      @NotBlank LocalDateTime date,
-      @NotNull @Valid AuthorDto author,
-      @NotBlank Boolean solution
+      @NotNull LocalDateTime date,
+      @Valid AuthorDto author,
+      @NotNull Boolean solution
 ) {
 }

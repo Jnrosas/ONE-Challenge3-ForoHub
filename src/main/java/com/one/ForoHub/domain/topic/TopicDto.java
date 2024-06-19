@@ -14,10 +14,10 @@ import java.util.List;
 public record TopicDto(
    @NotBlank String title,
    @NotBlank String message,
-   @NotBlank LocalDateTime date,
-   @NotBlank Boolean status,
-   @NotNull @Valid AuthorDto author,
+   @NotNull LocalDateTime date,
+   @NotNull Boolean status,
+   @Valid AuthorDto author,
    @NotNull Course course,
-   @NotNull @Valid List<AnswerDto> answer
+   @Valid List<AnswerDto> answer
 ) {
 }
