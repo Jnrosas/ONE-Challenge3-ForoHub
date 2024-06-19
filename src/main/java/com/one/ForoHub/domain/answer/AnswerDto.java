@@ -2,6 +2,7 @@ package com.one.ForoHub.domain.answer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.one.ForoHub.domain.author.AuthorDto;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -12,7 +13,7 @@ public record AnswerDto(
       @NotBlank String topic,
       @NotBlank String message,
       @NotBlank LocalDateTime date,
-      @NotNull AuthorDto author,
+      @NotNull @Valid AuthorDto author,
       @NotBlank Boolean solution
 ) {
 }
