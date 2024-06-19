@@ -20,9 +20,14 @@ public class Answer {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
+   @ManyToOne
+   @JoinColumn(name = "id_topic")
    private Topic topic;
    private String message;
    private LocalDateTime date;
+   @ManyToOne
+   @JoinColumn(name = "id_author")
    private Author author;
    private Boolean solution;
+
 }

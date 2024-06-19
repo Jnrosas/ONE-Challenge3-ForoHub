@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,10 +25,13 @@ public class Topic {
    private String message;
    private LocalDateTime date;
    private Boolean status;
+   @ManyToOne
+   @JoinColumn(name = "id_author")
    private Author author;
    @Enumerated(EnumType.STRING)
    private Course course;
-   private List<Answer> answer;
+   @OneToMany(mappedBy = "topic")
+   private List<Answer> answers;
 
    public Topic(TopicDto data) {
       this.title = data.title();
@@ -38,6 +40,6 @@ public class Topic {
       this.status = data.status();
       this.author = new Author(data.author());
       this.course = data.course();
-      this.answer = new ArrayList<>();
+      answers.add((Answer) data.answer());
    }
 }
