@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "topics")
@@ -29,5 +31,18 @@ public class Topic {
    @Enumerated(EnumType.STRING)
    private Course course;
    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-   private List<Response> responses;
+   private List<Response> responses = new ArrayList<>();
+
+   public Topic(TopicDto data) {
+      this.title = data.title();
+      this.message = data.message();
+      this.date = data.date();
+      this.status = data.status();
+      this.author = new User(data.author());
+      this.course = data.course();
+      this.responses = data.responses().stream()
+            .map(r -> new Response(r, this))
+            .collect(Collectors.toList());
+   }
+
 }

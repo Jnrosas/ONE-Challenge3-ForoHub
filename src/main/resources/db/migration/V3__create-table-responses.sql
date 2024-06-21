@@ -1,13 +1,12 @@
-create table topics(
+create table responses(
     id bigint not null auto_increment,
-    title varchar(100),
     message varchar(300),
     date datetime,
-    status boolean,
+    solution boolean,
+    topic_id bigint,
     author_id bigint,
-    course varchar(100),
-    responses varchar(1000),
 
     primary key (id)
+--    foreign key (id_topic) references topics(id),
 --    foreign key (id_author) references users(id)
 );
