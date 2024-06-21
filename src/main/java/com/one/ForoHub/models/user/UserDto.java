@@ -1,4 +1,4 @@
-package com.one.ForoHub.domain.user;
+package com.one.ForoHub.models.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

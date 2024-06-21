@@ -1,4 +1,4 @@
-package com.one.ForoHub.domain.topic;
+package com.one.ForoHub.models.topic;
 
 public enum Course {
          INTRODUCTION_TO_INFORMATION_TECHNOLOGY,

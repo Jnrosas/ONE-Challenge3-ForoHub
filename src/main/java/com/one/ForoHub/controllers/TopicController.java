@@ -1,8 +1,7 @@
 package com.one.ForoHub.controllers;
 
-import com.one.ForoHub.domain.topic.TopicDto;
+import com.one.ForoHub.models.topic.TopicDto;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
