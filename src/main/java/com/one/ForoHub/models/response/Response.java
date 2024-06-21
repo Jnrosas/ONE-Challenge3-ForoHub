@@ -29,14 +29,11 @@ public class Response {
    private User author;
 
 
-   public Response(ResponseDto data, User author) {
-      this.author = author;
-   }
-
    public Response(ResponseDto data, Topic topic) {
       this.message = data.message();
       this.date = data.date();
       this.solution = data.solution();
       this.topic = topic;
+      this.author = new User(data.author());
    }
 }
