@@ -6,8 +6,8 @@ create table topics(
     status boolean,
     author_id bigint,
     course varchar(100),
-    responses varchar(1000),
+--    responses varchar(1000),
 
     primary key (id)
---    foreign key (id_author) references users(id)
+
 );

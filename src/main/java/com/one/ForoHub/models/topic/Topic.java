@@ -1,6 +1,7 @@
 package com.one.ForoHub.models.topic;
 
 import com.one.ForoHub.models.response.Response;
+import com.one.ForoHub.models.response.ResponseDto;
 import com.one.ForoHub.models.user.User;
 import jakarta.persistence.*;
 import lombok.*;

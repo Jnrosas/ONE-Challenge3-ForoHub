@@ -7,6 +7,4 @@ create table responses(
     author_id bigint,
 
     primary key (id)
---    foreign key (id_topic) references topics(id),
---    foreign key (id_author) references users(id)
 );
