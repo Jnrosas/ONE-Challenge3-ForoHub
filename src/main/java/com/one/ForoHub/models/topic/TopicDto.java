@@ -14,7 +14,7 @@ public record TopicDto(
       @NotBlank String title,
       @NotBlank String message,
       @NotNull @JsonFormat(pattern = "dd/MM/yyyy HH:mm") LocalDateTime date,
-      @NotNull Boolean status,
+      Boolean status,
       @NotNull @Valid UserDto author,
       @NotNull Course course,
       List<ResponseDto> responses

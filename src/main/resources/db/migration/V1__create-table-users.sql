@@ -1,9 +1,8 @@
 create table users(
     id bigint not null auto_increment,
-    name varchar(100),
-    email varchar(100),
-    password varchar(100),
---    topics varchar(1000),
+    name varchar(100) not null,
+    email varchar(100) not null,
+    password varchar(100) not null,
 
     primary key (id)
 

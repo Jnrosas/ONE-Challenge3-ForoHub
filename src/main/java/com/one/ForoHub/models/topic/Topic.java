@@ -22,7 +22,9 @@ public class Topic {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
+   @Column(unique = true)
    private String title;
+   @Column(unique = true)
    private String message;
    private LocalDateTime date;
    private Boolean status;
@@ -38,7 +40,7 @@ public class Topic {
       this.title = data.title();
       this.message = data.message();
       this.date = data.date();
-      this.status = data.status();
+      this.status = true;
       this.author = new User(data.author());
       this.course = data.course();
       this.responses = data.responses().stream()
