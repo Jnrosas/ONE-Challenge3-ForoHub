@@ -1,24 +1,23 @@
 package com.one.ForoHub.controllers;
 
-import com.one.ForoHub.models.topic.Topic;
-import com.one.ForoHub.models.topic.TopicDto;
-import com.one.ForoHub.models.topic.TopicListDto;
-import com.one.ForoHub.models.topic.TopicRepository;
-import com.one.ForoHub.models.user.User;
+import com.one.ForoHub.models.topic.*;
 import com.one.ForoHub.models.user.UserDto;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/topics")
 public class TopicController {
    @Autowired
    private TopicRepository topicRepository;
+   @Autowired
+   private TopicService topicService;
 
    @PostMapping
    @Transactional
@@ -27,10 +26,13 @@ public class TopicController {
    }
 
    @GetMapping
-   public List<TopicListDto> listTopics() {
-      return topicRepository.findAll()
-            .stream()
-            .map(t -> new TopicListDto(t))
-            .collect(Collectors.toList());
+   public Page<TopicListDto> listTopics(@PageableDefault(size = 2, sort = "date") Pageable pagination) {
+      return topicRepository.findAll(pagination)
+            .map(TopicListDto::new);
+   }
+
+   @GetMapping("/{id}")
+   public TopicListDto pickTopicById(@PathVariable Long id) {
+      return topicService.getTopicById(id);
    }
 }

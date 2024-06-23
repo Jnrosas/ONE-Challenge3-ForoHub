@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
 public record TopicListDto(
+      Long id,
       String title,
       String message,
       @JsonFormat(pattern = "dd/MM/yyyy HH:mm") LocalDateTime date,
@@ -13,7 +14,7 @@ public record TopicListDto(
       Course course
 ) {
    public TopicListDto(Topic topic) {
-      this(topic.getTitle(), topic.getMessage(), topic.getDate(),
+      this(topic.getId(), topic.getTitle(), topic.getMessage(), topic.getDate(),
             topic.getStatus(), topic.getAuthor().getName(), topic.getCourse());
    }
 }
