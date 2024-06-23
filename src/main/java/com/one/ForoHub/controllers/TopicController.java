@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/topics")
@@ -35,4 +37,6 @@ public class TopicController {
    public TopicListDto pickTopicById(@PathVariable Long id) {
       return topicService.getTopicById(id);
    }
+
+
 }

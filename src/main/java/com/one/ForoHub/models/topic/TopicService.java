@@ -2,6 +2,7 @@ package com.one.ForoHub.models.topic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 public class TopicService {
@@ -9,10 +10,13 @@ public class TopicService {
    private TopicRepository topicRepository;
 
    public TopicListDto getTopicById(Long id) {
-      Topic topicEnt = topicRepository.getReferenceById(id);
-      var topicData = new TopicListDto(topicEnt.getId(), topicEnt.getTitle(), topicEnt.getMessage(),
-            topicEnt.getDate(), topicEnt.getStatus(), topicEnt.getAuthor().getName(),
-            topicEnt.getCourse());
-      return topicData;
+      Optional<Topic> topicEnt = topicRepository.findById(id);
+      if (topicEnt.isPresent()) {
+         Topic topic = topicEnt.get();
+         return new TopicListDto(topic.getId(), topic.getTitle(), topic.getMessage(),
+               topic.getDate(), topic.getStatus(), topic.getAuthor().getName(),
+               topic.getCourse());
+      }
+      return null;
    }
 }
