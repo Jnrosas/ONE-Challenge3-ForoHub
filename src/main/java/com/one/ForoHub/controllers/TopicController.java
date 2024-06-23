@@ -38,5 +38,10 @@ public class TopicController {
       return topicService.getTopicById(id);
    }
 
+   @PutMapping("/{id}")
+   @Transactional
+   public void putTopic(@RequestBody @Valid TopicUpdateDto data, @PathVariable Long id) {
+      topicService.updateTopic(data, id);
+   }
 
 }

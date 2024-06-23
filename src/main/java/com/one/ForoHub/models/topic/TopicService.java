@@ -19,4 +19,12 @@ public class TopicService {
       }
       return null;
    }
+
+   public void updateTopic(TopicUpdateDto data, Long id) {
+      Optional<Topic> topicEnt = topicRepository.findById(id);
+      if (topicEnt.isPresent()) {
+         Topic topic = topicEnt.get();
+         topic.updateData(data);
+      }
+   }
 }

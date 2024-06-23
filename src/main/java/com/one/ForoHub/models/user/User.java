@@ -33,4 +33,11 @@ public class User {
       this.password = author.password();
 
    }
+
+   public User updateAuthor(UserDto author) {
+      this.name = author.name();
+      this.email = author.email();
+      this.password = author.password();
+      return this;
+   }
 }

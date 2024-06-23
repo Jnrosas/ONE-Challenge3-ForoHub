@@ -48,4 +48,19 @@ public class Topic {
             .collect(Collectors.toList());
    }
 
+   public void updateData(TopicUpdateDto data) {
+      if (data.title() != null) {
+         this.title = data.title();
+      }
+      if (data.message() != null) {
+         this.message = data.message();
+      }
+      if (data.author() != null) {
+         this.author = author.updateAuthor(data.author());
+      }
+      if (data.course() != null) {
+         this.course = data.course();
+      }
+   }
+
 }
