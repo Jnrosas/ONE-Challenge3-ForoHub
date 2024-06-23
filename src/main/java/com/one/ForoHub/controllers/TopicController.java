@@ -40,8 +40,14 @@ public class TopicController {
 
    @PutMapping("/{id}")
    @Transactional
-   public void putTopic(@RequestBody @Valid TopicUpdateDto data, @PathVariable Long id) {
-      topicService.updateTopic(data, id);
+   public TopicListDto putTopic(@RequestBody @Valid TopicUpdateDto data, @PathVariable Long id) {
+      return topicService.updateTopic(data, id);
+   }
+
+   @DeleteMapping("/{id}")
+   @Transactional
+   public void eraseTopic(@PathVariable Long id) {
+      topicService.deleteTopic(id);
    }
 
 }

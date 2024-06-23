@@ -20,11 +20,20 @@ public class TopicService {
       return null;
    }
 
-   public void updateTopic(TopicUpdateDto data, Long id) {
+   public TopicListDto updateTopic(TopicUpdateDto data, Long id) {
       Optional<Topic> topicEnt = topicRepository.findById(id);
       if (topicEnt.isPresent()) {
          Topic topic = topicEnt.get();
          topic.updateData(data);
+         return new TopicListDto(topic);
+      }
+      return null;
+   }
+
+   public void deleteTopic(Long id) {
+      Optional<Topic> topicEnt = topicRepository.findById(id);
+      if (topicEnt.isPresent()) {
+         topicRepository.deleteById(id);
       }
    }
 }
