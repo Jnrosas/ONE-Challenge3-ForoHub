@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.Optional;
 
 
@@ -23,31 +26,40 @@ public class TopicController {
 
    @PostMapping
    @Transactional
-   public void postTopic(@RequestBody @Valid TopicDto data) {
-      topicRepository.save(new Topic(data));
+   public ResponseEntity<TopicListDto> postTopic(@RequestBody @Valid TopicDto data,
+                                                 UriComponentsBuilder uri) {
+      Topic topic = topicRepository.save(new Topic(data));
+      TopicListDto topicListDto = new TopicListDto(topic.getId(), topic.getTitle(),
+            topic.getMessage(), topic.getDate(), topic.getStatus(), topic.getAuthor().getName(),
+            topic.getCourse());
+      URI url = uri.path("/topics/{id}").buildAndExpand(topic.getId()).toUri();
+      return ResponseEntity.created(url).body(topicListDto);
    }
 
    @GetMapping
-   public Page<TopicListDto> listTopics(@PageableDefault(size = 2, sort = "date") Pageable pagination) {
-      return topicRepository.findAll(pagination)
-            .map(TopicListDto::new);
+   public ResponseEntity<Page<TopicListDto>> listTopics(
+         @PageableDefault(size = 2, sort = "date") Pageable pagination) {
+      return ResponseEntity.ok(topicRepository.findAll(pagination)
+            .map(TopicListDto::new));
    }
 
    @GetMapping("/{id}")
-   public TopicListDto pickTopicById(@PathVariable Long id) {
-      return topicService.getTopicById(id);
+   public ResponseEntity<TopicListDto> pickTopicById(@PathVariable Long id) {
+      return ResponseEntity.ok(topicService.getTopicById(id));
    }
 
    @PutMapping("/{id}")
    @Transactional
-   public TopicListDto putTopic(@RequestBody @Valid TopicUpdateDto data, @PathVariable Long id) {
-      return topicService.updateTopic(data, id);
+   public ResponseEntity<TopicListDto> putTopic(@RequestBody @Valid TopicUpdateDto data,
+                                                @PathVariable Long id) {
+      return ResponseEntity.ok(topicService.updateTopic(data, id));
    }
 
    @DeleteMapping("/{id}")
    @Transactional
-   public void eraseTopic(@PathVariable Long id) {
+   public ResponseEntity eraseTopic(@PathVariable Long id) {
       topicService.deleteTopic(id);
+      return ResponseEntity.noContent().build();
    }
 
 }
