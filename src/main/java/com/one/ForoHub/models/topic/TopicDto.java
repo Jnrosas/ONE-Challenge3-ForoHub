@@ -17,6 +17,6 @@ public record TopicDto(
       Boolean status,
       @NotNull @Valid UserDto author,
       @NotNull Course course,
-      List<ResponseDto> responses
+      @Valid List<ResponseDto> responses
 ) {
 }
