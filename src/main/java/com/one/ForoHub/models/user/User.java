@@ -1,9 +1,11 @@
 package com.one.ForoHub.models.user;
 
+import com.one.ForoHub.infra.security.AuthenticationService;
 import com.one.ForoHub.models.response.Response;
 import com.one.ForoHub.models.topic.Topic;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +33,8 @@ public class User implements UserDetails {
    private List<Topic> topics = new ArrayList<>();
    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
    private List<Response> responses = new ArrayList<>();
+
+
 
    public User(UserDto author) {
       this.name = author.name();

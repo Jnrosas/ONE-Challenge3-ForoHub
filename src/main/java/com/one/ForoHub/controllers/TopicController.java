@@ -1,7 +1,7 @@
 package com.one.ForoHub.controllers;
 
 import com.one.ForoHub.models.topic.*;
-import com.one.ForoHub.models.user.UserDto;
+import com.one.ForoHub.models.user.UserService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Optional;
 
 
 @RestController
@@ -23,12 +22,20 @@ public class TopicController {
    private TopicRepository topicRepository;
    @Autowired
    private TopicService topicService;
+   @Autowired
+   private UserService userService;
+
 
    @PostMapping
    @Transactional
    public ResponseEntity<TopicListDto> postTopic(@RequestBody @Valid TopicDto data,
                                                  UriComponentsBuilder uri) {
+
       Topic topic = topicRepository.save(new Topic(data));
+
+      //para encriptar clave
+      userService.encryptPassword(topic);
+
       TopicListDto topicListDto = new TopicListDto(topic.getId(), topic.getTitle(),
             topic.getMessage(), topic.getDate(), topic.getStatus(), topic.getAuthor().getName(),
             topic.getCourse());

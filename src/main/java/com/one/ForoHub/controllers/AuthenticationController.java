@@ -24,6 +24,7 @@ public class AuthenticationController {
    @Autowired
    private TokenService tokenService;
 
+
    @PostMapping
    public ResponseEntity UserAuthentication(@RequestBody @Valid UserAuthenticationDto userAuthenticationDto) {
 
@@ -36,4 +37,5 @@ public class AuthenticationController {
 
       return ResponseEntity.ok(new JWTokenDto(JWToken));
    }
+
 }
