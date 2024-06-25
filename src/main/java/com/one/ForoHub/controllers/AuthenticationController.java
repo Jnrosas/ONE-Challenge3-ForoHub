@@ -1,5 +1,8 @@
 package com.one.ForoHub.controllers;
 
+import com.one.ForoHub.infra.security.JWTokenDto;
+import com.one.ForoHub.infra.security.TokenService;
+import com.one.ForoHub.models.user.User;
 import com.one.ForoHub.models.user.UserAuthenticationDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +21,19 @@ public class AuthenticationController {
 
    @Autowired
    private AuthenticationManager authenticationManager;
+   @Autowired
+   private TokenService tokenService;
 
    @PostMapping
    public ResponseEntity UserAuthentication(@RequestBody @Valid UserAuthenticationDto userAuthenticationDto) {
 
-      Authentication token = new UsernamePasswordAuthenticationToken(
+      Authentication authToken = new UsernamePasswordAuthenticationToken(
             userAuthenticationDto.name(), userAuthenticationDto.password());
-      authenticationManager.authenticate(token);
-      return ResponseEntity.ok().build();
+
+      var authenticatedUser = authenticationManager.authenticate(authToken);
+
+      var JWToken = tokenService.generateToken((User) authenticatedUser.getPrincipal());
+
+      return ResponseEntity.ok(new JWTokenDto(JWToken));
    }
 }

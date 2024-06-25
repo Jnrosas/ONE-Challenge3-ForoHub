@@ -36,7 +36,6 @@ public class User implements UserDetails {
       this.name = author.name();
       this.email = author.email();
       this.password = author.password();
-
    }
 
    public User updateAuthor(UserDto author) {
