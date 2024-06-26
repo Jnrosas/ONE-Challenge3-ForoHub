@@ -35,11 +35,16 @@ public class TokenService {
       }
    }
 
+
    public Instant expiryDate() {
       return LocalDateTime.now().plusHours(24).toInstant(ZoneOffset.of("-03:00"));
    }
 
+
    public String getSubject(String token) {
+      if (token == null) {
+         throw new RuntimeException("Token invalid");
+      }
       DecodedJWT verifier = null;
       try {
          Algorithm algorithm = Algorithm.HMAC256(apiSecret);
