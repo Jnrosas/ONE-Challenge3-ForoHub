@@ -2,6 +2,8 @@ package com.one.ForoHub.controllers;
 
 import com.one.ForoHub.models.topic.*;
 import com.one.ForoHub.models.user.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/topics")
+@SecurityRequirement(name = "bearer-key")
 public class TopicController {
    @Autowired
    private TopicRepository topicRepository;
@@ -28,6 +31,7 @@ public class TopicController {
 
    @PostMapping
    @Transactional
+   @Operation(summary = "Post a topic", description = "The posted topic will be stored into the database")
    public ResponseEntity<TopicListDto> postTopic(@RequestBody @Valid TopicDto data,
                                                  UriComponentsBuilder uri) {
 
@@ -44,6 +48,9 @@ public class TopicController {
    }
 
    @GetMapping
+   @Operation(summary = "Get the list of topics",
+         description = "The list of topics will be retrieved from the database, ordered in pages" +
+               " of 2 topics each and sorted by its creation date")
    public ResponseEntity<Page<TopicListDto>> listTopics(
          @PageableDefault(size = 2, sort = "date") Pageable pagination) {
       return ResponseEntity.ok(topicRepository.findAll(pagination)
@@ -51,12 +58,14 @@ public class TopicController {
    }
 
    @GetMapping("/{id}")
+   @Operation(summary = "Get a specific topic", description = "Retreive a topic by its ID")
    public ResponseEntity<TopicListDto> pickTopicById(@PathVariable Long id) {
       return ResponseEntity.ok(topicService.getTopicById(id));
    }
 
    @PutMapping("/{id}")
    @Transactional
+   @Operation(summary = "Update a topic", description = "Update the topic by its ID")
    public ResponseEntity<TopicListDto> putTopic(@RequestBody @Valid TopicUpdateDto data,
                                                 @PathVariable Long id) {
       return ResponseEntity.ok(topicService.updateTopic(data, id));
@@ -64,6 +73,7 @@ public class TopicController {
 
    @DeleteMapping("/{id}")
    @Transactional
+   @Operation(summary = "Delete a topic", description = "Delete the topic indicated by its ID")
    public ResponseEntity eraseTopic(@PathVariable Long id) {
       topicService.deleteTopic(id);
       return ResponseEntity.noContent().build();

@@ -4,6 +4,7 @@ import com.one.ForoHub.infra.security.JWTokenDto;
 import com.one.ForoHub.infra.security.TokenService;
 import com.one.ForoHub.models.user.User;
 import com.one.ForoHub.models.user.UserAuthenticationDto;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ public class AuthenticationController {
 
 
    @PostMapping
+   @Operation(summary = "Log in", description = "Log in using a user name and a password")
    public ResponseEntity UserAuthentication(@RequestBody @Valid UserAuthenticationDto userAuthenticationDto) {
 
       Authentication authToken = new UsernamePasswordAuthenticationToken(
